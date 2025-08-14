@@ -5,17 +5,16 @@ using System.Threading.Tasks;
 
 namespace api.Models
 {
-    public class Discussion
+    public class Document
     {
         public int Id { get; set; }
-        public string Message { get; set; } = string.Empty;
-
+        public string FileName { get; set; } = string.Empty;
+        public byte[]? File { get; set; }
         public DateTime CreatedOn { get; set; }
         public DateTime ModifiedOn { get; set; }
         public DateTime DeletedOn { get; set; }
         public bool IsDeleted { get; set; }
-        public int? CompanyId { get; set; }
-        public Company? Company { get; set; }
-        public List<Document> Documents { get; set; } = new List<Document>();
+        public int DiscussionId { get; set; }
+        public Discussion? Discussion { get; set; }
     }
 }
