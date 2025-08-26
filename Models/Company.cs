@@ -7,7 +7,7 @@ namespace api.Models
 {
     public class Company
     {
-        public int Id { get; set; }
+        public long Id { get; set; }
         public required string CompanyName { get; set; }
         public DateTime CreatedOn { get; set; }
         public DateTime ModifiedOn { get; set; }
