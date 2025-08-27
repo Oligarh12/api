@@ -13,5 +13,6 @@ namespace api.Dtos.Employee
         public string Patronymic { get; set; } = string.Empty;
         public required string Position { get; set; }
         public DateTime? ClosestLicenseDate { get; set; }
+        public long CompanyId { get; set; }
     }
 }

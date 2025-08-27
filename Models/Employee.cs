@@ -13,5 +13,7 @@ namespace api.Models
         public string Patronymic { get; set; } = string.Empty;
         public required string Position { get; set; }
         public DateTime? ClosestLicenseDate { get; set; }
+        public long CompanyId { get; set; }
+        public required Company Company { get; set; }
     }
 }

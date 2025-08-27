@@ -17,9 +17,8 @@ namespace api.Dtos.Discussion
         public DateTime DeletedOn { get; set; }
         public bool IsDeleted { get; set; }
         public long CompanyId { get; set; }
-        public CompanyDto? Company { get; set; }
         public long OrderId { get; set; }
-        public OrderDto? Order { get; set; }
-        public List<DocumentDto> Documents { get; set; } = new List<DocumentDto>();
+        // public OrderDto? Order { get; set; }
+        // public List<DocumentDto> Documents { get; set; } = new List<DocumentDto>();
     }
 }

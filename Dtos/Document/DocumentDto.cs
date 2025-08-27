@@ -16,6 +16,6 @@ namespace api.Dtos.Document
         public DateTime DeletedOn { get; set; }
         public bool IsDeleted { get; set; }
         public long DiscussionId { get; set; }
-        public DiscussionDto? Discussion { get; set; }
+        // public DiscussionDto? Discussion { get; set; }
     }
 }

@@ -9,8 +9,6 @@ namespace api.Dtos.Company
     {
         public long Id { get; set; }
         public required string CompanyName { get; set; }
-        //public DateTime CreatedOn { get; set; } = DateTime.Now;
-        
         public DateTime CreatedOn { get; set; }
         public DateTime ModifiedOn { get; set; }
         public DateTime DeletedOn { get; set; }

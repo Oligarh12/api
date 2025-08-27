@@ -5,6 +5,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using api.Data;
 using api.Dtos.Company;
+using api.Interfaces;
 using api.Mappers;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
@@ -16,23 +17,25 @@ namespace api.Controllers
     public class CompanyController : ControllerBase
     {
         private readonly DBContext _dbContext;
-        public CompanyController(DBContext dbContext)
+        private readonly ICompanyRepository _companyRepo;
+        public CompanyController(DBContext dbContext, ICompanyRepository companyRepo)
         {
+            _companyRepo = companyRepo;
             _dbContext = dbContext;
         }
 
         [HttpGet]
         public async Task<IActionResult> GetAllCompanies()
         {
-            var companies = await _dbContext.Companies.ToListAsync();
+            var companies = await _companyRepo.GetAllAsync();
             var companyDto = companies.Select(s => s.ToCompanyDTO());
             return Ok(companies);
         }
 
         [HttpGet("{id}")]
-        public async Task<IActionResult> GetCompanyById([FromRoute] int id)
+        public async Task<IActionResult> GetCompanyById([FromRoute] long id)
         {
-            var company = await _dbContext.Companies.FindAsync(id);
+            var company = await _companyRepo.GetByIdAsync(id);
             if (company == null)
             {
                 return NotFound();
@@ -45,27 +48,21 @@ namespace api.Controllers
         {
             var companyModel = companyDto.ToCompanyCreate();
 
-            await _dbContext.Companies.AddAsync(companyModel);
-            await _dbContext.SaveChangesAsync();
+            await _companyRepo.CreateAsync(companyModel);
 
             return CreatedAtAction(nameof(GetCompanyById), new { id = companyModel.Id }, companyModel.ToCompanyDTO());
         }
 
         [HttpPut]
         [Route("{id}")]
-        public async Task<IActionResult> Update([FromRoute] int id, [FromBody] UpdateCompanyRequestDto updateDto)
+        public async Task<IActionResult> Update([FromRoute] long id, [FromBody] UpdateCompanyRequestDto updateDto)
         {
-            var companyModel = await _dbContext.Companies.FirstOrDefaultAsync(x => x.Id == id);
+            var companyModel = await _companyRepo.UpdateAsync(id, updateDto);
 
             if (companyModel == null)
             {
                 return NotFound();
             }
-
-            companyModel.CompanyName = updateDto.CompanyName;
-            companyModel.ModifiedOn = DateTime.Now;
-
-            await _dbContext.SaveChangesAsync();
 
             return Ok(companyModel.ToCompanyDTO());
         }
@@ -73,7 +70,7 @@ namespace api.Controllers
         /*
         [HttpDelete]
         [Route("{id}")]
-        public IActionResult Delete([FromRoute] int id)
+        public IActionResult Delete([FromRoute] long id)
         {
             var companyModel = _dbContext.Companies.FirstOrDefault(x => x.Id == id);
 
@@ -91,19 +88,14 @@ namespace api.Controllers
         
         [HttpDelete]
         [Route("{id}")]
-        public async Task<IActionResult> Delete([FromRoute] int id)
+        public async Task<IActionResult> Delete([FromRoute] long id)
         {
-            var companyModel = await _dbContext.Companies.FirstOrDefaultAsync(x => x.Id == id);
+            var companyModel = await _companyRepo.DeleteAsync(id);
 
             if (companyModel == null)
             {
                 return NotFound();
             }
-
-            companyModel.DeletedOn = DateTime.Now;
-            companyModel.IsDeleted = true;
-
-            await _dbContext.SaveChangesAsync();
 
             return Ok(companyModel.ToCompanyDTO());
         }

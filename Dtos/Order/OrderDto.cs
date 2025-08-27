@@ -15,6 +15,6 @@ namespace api.Dtos.Order
         public DateTime ModifiedOn { get; set; }
         public DateTime DeletedOn { get; set; }
         public bool IsDeleted { get; set; } = false;
-        public List<DiscussionDto> Discussions { get; set; } = new List<DiscussionDto>();
+        // public List<DiscussionDto> Discussions { get; set; } = new List<DiscussionDto>();
     }
 }
