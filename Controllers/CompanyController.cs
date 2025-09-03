@@ -7,6 +7,7 @@ using api.Data;
 using api.Dtos.Company;
 using api.Interfaces;
 using api.Mappers;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 
@@ -25,16 +26,19 @@ namespace api.Controllers
         }
 
         [HttpGet]
+        [Authorize]
         public async Task<IActionResult> GetAllCompanies()
         {
             var companies = await _companyRepo.GetAllAsync();
             var companyDto = companies.Select(s => s.ToCompanyDTO());
-            return Ok(companies);
+            return Ok(companyDto);
         }
 
-        [HttpGet("{id}")]
+        [HttpGet("{id:long}")]
         public async Task<IActionResult> GetCompanyById([FromRoute] long id)
         {
+            if (!ModelState.IsValid)
+                return BadRequest(ModelState);
             var company = await _companyRepo.GetByIdAsync(id);
             if (company == null)
             {

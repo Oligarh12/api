@@ -18,7 +18,8 @@ namespace api.Mappers
                 CreatedOn = companyModel.CreatedOn,
                 ModifiedOn = companyModel.ModifiedOn,
                 DeletedOn = companyModel.DeletedOn,
-                IsDeleted = companyModel.IsDeleted
+                IsDeleted = companyModel.IsDeleted,
+                Employees = companyModel.Employees.Select(s => s.ToEmployeeDTO()).ToList()
             };
         }
 
