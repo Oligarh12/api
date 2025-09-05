@@ -14,6 +14,9 @@ namespace api.Models
         public DateTime ModifiedOn { get; set; }
         public DateTime DeletedOn { get; set; }
         public bool IsDeleted { get; set; } = false;
-        public List<Discussion> Discussions { get; set; } = new List<Discussion>();
+        public long CompanyId { get; set; }
+        public Company? Company { get; set; }
+        public List<Employee> Employees { get; set; } = new List<Employee>();
+        public Discussion? Discussion { get; set; }
     }
 }

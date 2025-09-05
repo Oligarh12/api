@@ -9,6 +9,7 @@ namespace api.Interfaces
     public interface IEmployeeRepository
     {
         Task<List<Employee>> GetAllAsync();
+        Task<List<Employee>> GetAllByCompanyAsync(long companyId);
         Task<Employee?> GetByIdAsync(long id);
         Task<Employee> CreateAsync(Employee employeeModel);
         Task<Employee?> UpdateAsync(long id, Employee updated);

@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using api.Dtos.Discussion;
+using api.Dtos.Employee;
 
 namespace api.Dtos.Order
 {
@@ -15,6 +16,8 @@ namespace api.Dtos.Order
         public DateTime ModifiedOn { get; set; }
         public DateTime DeletedOn { get; set; }
         public bool IsDeleted { get; set; } = false;
-        // public List<DiscussionDto> Discussions { get; set; } = new List<DiscussionDto>();
+        public long CompanyId { get; set; }
+        public List<EmployeeDto> Employees { get; set; } = new List<EmployeeDto>();
+        public DiscussionDto? Discussion { get; set; }
     }
 }

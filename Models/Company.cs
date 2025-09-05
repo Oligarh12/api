@@ -18,5 +18,6 @@ namespace api.Models
         public bool IsDeleted { get; set; }
         public List<Discussion> Discussions { get; set; } = new List<Discussion>();
         public List<Employee> Employees { get; set; } = new List<Employee>();
+        public List<Order> Orders { get; set; } = new List<Order>();
     }
 }

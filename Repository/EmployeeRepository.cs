@@ -23,6 +23,13 @@ namespace api.Repository
                 .ToListAsync();
         }
 
+        public async Task<List<Employee>> GetAllByCompanyAsync(long companyId)
+        {
+            return await _dbContext.Employees
+                .Where(e => !e.IsDeleted && e.CompanyId == companyId)
+                .ToListAsync();
+        }
+
         public async Task<Employee?> GetByIdAsync(long id)
         {
             return await _dbContext.Employees

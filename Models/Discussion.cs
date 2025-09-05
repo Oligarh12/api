@@ -8,7 +8,6 @@ namespace api.Models
     public class Discussion
     {
         public long Id { get; set; }
-        public required string Message { get; set; }
         public DateTime CreatedOn { get; set; }
         public DateTime ModifiedOn { get; set; }
         public DateTime DeletedOn { get; set; }
@@ -18,5 +17,6 @@ namespace api.Models
         public long OrderId { get; set; }
         public Order? Order { get; set; }
         public List<Document> Documents { get; set; } = new List<Document>();
+        public List<DiscussionMessage> Messages { get; set; } = new List<DiscussionMessage>();
     }
 }

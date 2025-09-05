@@ -17,5 +17,6 @@ namespace api.Models
         public required Company Company { get; set; }
         public bool IsDeleted { get; set; }
         public DateTime? DeletedOn { get; set; }
+        public List<Order> Orders { get; set; } = new List<Order>();
     }
 }

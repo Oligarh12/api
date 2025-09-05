@@ -3,6 +3,7 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using api.Data;
 
@@ -11,9 +12,11 @@ using api.Data;
 namespace api.Migrations
 {
     [DbContext(typeof(DBContext))]
-    partial class DBContextModelSnapshot : ModelSnapshot
+    [Migration("20250905065945_StructureNormalize")]
+    partial class StructureNormalize
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -66,13 +69,13 @@ namespace api.Migrations
                     b.HasData(
                         new
                         {
-                            Id = "fb73ded9-81e6-4c96-b747-1f927c1e8181",
+                            Id = "2bd16b3c-4d2d-4ddc-9181-e01e7363b0e5",
                             Name = "Admin",
                             NormalizedName = "ADMIN"
                         },
                         new
                         {
-                            Id = "5f2acafe-69c5-44be-91c5-e383b739f690",
+                            Id = "b0cc08d6-722b-42cb-964b-0baf06bef9c6",
                             Name = "User",
                             NormalizedName = "USER"
                         });
@@ -543,13 +546,13 @@ namespace api.Migrations
                     b.HasOne("api.Models.Company", "Company")
                         .WithMany("Discussions")
                         .HasForeignKey("CompanyId")
-                        .OnDelete(DeleteBehavior.Restrict)
+                        .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
                     b.HasOne("api.Models.Order", "Order")
                         .WithOne("Discussion")
                         .HasForeignKey("api.Models.Discussion", "OrderId")
-                        .OnDelete(DeleteBehavior.Restrict)
+                        .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
                     b.Navigation("Company");
@@ -562,7 +565,7 @@ namespace api.Migrations
                     b.HasOne("api.Models.Discussion", "Discussion")
                         .WithMany("Messages")
                         .HasForeignKey("DiscussionId")
-                        .OnDelete(DeleteBehavior.Restrict)
+                        .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
                     b.Navigation("Discussion");
@@ -573,7 +576,7 @@ namespace api.Migrations
                     b.HasOne("api.Models.Discussion", "Discussion")
                         .WithMany("Documents")
                         .HasForeignKey("DiscussionId")
-                        .OnDelete(DeleteBehavior.Restrict)
+                        .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
                     b.Navigation("Discussion");
@@ -584,7 +587,7 @@ namespace api.Migrations
                     b.HasOne("api.Models.Company", "Company")
                         .WithMany("Employees")
                         .HasForeignKey("CompanyId")
-                        .OnDelete(DeleteBehavior.Restrict)
+                        .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
                     b.Navigation("Company");
@@ -595,7 +598,7 @@ namespace api.Migrations
                     b.HasOne("api.Models.Company", "Company")
                         .WithMany("Orders")
                         .HasForeignKey("CompanyId")
-                        .OnDelete(DeleteBehavior.Restrict)
+                        .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
                     b.Navigation("Company");
