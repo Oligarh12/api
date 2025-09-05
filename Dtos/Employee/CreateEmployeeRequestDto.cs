@@ -1,21 +1,28 @@
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
+using System.ComponentModel.DataAnnotations;
 
-namespace api.Models
+namespace api.Dtos.Employee
 {
-    public class Employee
+    public class CreateEmployeeRequestDto
     {
-        public long Id { get; set; }
+        [Required]
+        [MinLength(1)]
         public required string FirstName { get; set; }
+
+        [Required]
+        [MinLength(1)]
         public required string LastName { get; set; }
+
         public string Patronymic { get; set; } = string.Empty;
+
+        [Required]
+        [MinLength(1)]
         public required string Position { get; set; }
+
         public DateTime? ClosestLicenseDate { get; set; }
+
+        [Range(1, long.MaxValue)]
         public long CompanyId { get; set; }
-        public required Company Company { get; set; }
-        public bool IsDeleted { get; set; }
-        public DateTime? DeletedOn { get; set; }
     }
 }
+

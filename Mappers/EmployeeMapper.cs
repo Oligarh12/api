@@ -23,14 +23,34 @@ namespace api.Mappers
 
             };
 
-        // public static Employee ToEmployeeCreate(this CreateEmployeeRequestDto employeeDto)
-        // {
-        //     return new Employee
-        //     {
-        //         CompanyName = companyDto.CompanyName,
-        //         CreatedOn = DateTime.Now,
-        //         IsDeleted = false
-        //     };
+        }
+
+        public static Employee ToEmployeeCreate(this CreateEmployeeRequestDto employeeDto)
+        {
+            return new Employee
+            {
+                FirstName = employeeDto.FirstName,
+                LastName = employeeDto.LastName,
+                Patronymic = employeeDto.Patronymic,
+                Position = employeeDto.Position,
+                ClosestLicenseDate = employeeDto.ClosestLicenseDate,
+                CompanyId = employeeDto.CompanyId,
+                Company = null! // navigation set by EF via CompanyId
+            };
+        }
+
+        public static Employee ToEmployeeUpdate(this UpdateEmployeeRequestDto employeeDto)
+        {
+            return new Employee
+            {
+                FirstName = employeeDto.FirstName,
+                LastName = employeeDto.LastName,
+                Patronymic = employeeDto.Patronymic,
+                Position = employeeDto.Position,
+                ClosestLicenseDate = employeeDto.ClosestLicenseDate,
+                CompanyId = employeeDto.CompanyId,
+                Company = null!
+            };
         }
     }
 }

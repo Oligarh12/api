@@ -44,13 +44,17 @@ namespace api.Repository
 
         public async Task<List<Company>> GetAllAsync()
         {
-            return await _dbContext.Companies.Include(c => c.Employees).ToListAsync();
+            return await _dbContext.Companies
+                .Include(c => c.Employees.Where(e => !e.IsDeleted))
+                .ToListAsync();
         }
 
         public async Task<Company?> GetByIdAsync(long id)
         {
             // return await _dbContext.Companies.FindAsync(id);
-            return await _dbContext.Companies.Include(c => c.Employees).FirstOrDefaultAsync(x => x.Id == id);
+            return await _dbContext.Companies
+                .Include(c => c.Employees.Where(e => !e.IsDeleted))
+                .FirstOrDefaultAsync(x => x.Id == id);
         }
 
         public async Task<Company?> UpdateAsync(long id, UpdateCompanyRequestDto updateDto)

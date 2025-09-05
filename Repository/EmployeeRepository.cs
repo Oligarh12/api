@@ -16,14 +16,62 @@ namespace api.Repository
         {
             _dbContext = dbContext;
         }
-        public Task<List<Employee>> GetAllAsync()
+        public async Task<List<Employee>> GetAllAsync()
         {
-            throw new NotImplementedException();
+            return await _dbContext.Employees
+                .Where(e => !e.IsDeleted)
+                .ToListAsync();
         }
 
-        public Task<Employee?> GetByIdAsync(long id)
+        public async Task<Employee?> GetByIdAsync(long id)
         {
-            throw new NotImplementedException();
+            return await _dbContext.Employees
+                .FirstOrDefaultAsync(e => e.Id == id && !e.IsDeleted);
+        }
+
+        public async Task<Employee> CreateAsync(Employee employeeModel)
+        {
+            await _dbContext.Employees.AddAsync(employeeModel);
+            await _dbContext.SaveChangesAsync();
+            return employeeModel;
+        }
+
+        public async Task<Employee?> UpdateAsync(long id, Employee updated)
+        {
+            var existing = await _dbContext.Employees.FirstOrDefaultAsync(e => e.Id == id);
+            if (existing == null)
+            {
+                return null;
+            }
+
+            existing.FirstName = updated.FirstName;
+            existing.LastName = updated.LastName;
+            existing.Patronymic = updated.Patronymic;
+            existing.Position = updated.Position;
+            existing.ClosestLicenseDate = updated.ClosestLicenseDate;
+            existing.CompanyId = updated.CompanyId;
+
+            await _dbContext.SaveChangesAsync();
+            return existing;
+        }
+
+        public async Task<bool> DeleteAsync(long id)
+        {
+            var existing = await _dbContext.Employees.FirstOrDefaultAsync(e => e.Id == id);
+            if (existing == null)
+            {
+                return false;
+            }
+
+            if (existing.IsDeleted)
+            {
+                return true; // already soft-deleted
+            }
+
+            existing.IsDeleted = true;
+            existing.DeletedOn = DateTime.Now;
+            await _dbContext.SaveChangesAsync();
+            return true;
         }
     }
 }

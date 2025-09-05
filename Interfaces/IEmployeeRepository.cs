@@ -10,5 +10,8 @@ namespace api.Interfaces
     {
         Task<List<Employee>> GetAllAsync();
         Task<Employee?> GetByIdAsync(long id);
+        Task<Employee> CreateAsync(Employee employeeModel);
+        Task<Employee?> UpdateAsync(long id, Employee updated);
+        Task<bool> DeleteAsync(long id);
     }
 }
