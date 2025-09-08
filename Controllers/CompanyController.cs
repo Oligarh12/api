@@ -26,7 +26,7 @@ namespace api.Controllers
         }
 
         [HttpGet]
-        [Authorize]
+        //[Authorize]
         public async Task<IActionResult> GetAllCompanies()
         {
             var companies = await _companyRepo.GetAllAsync();
